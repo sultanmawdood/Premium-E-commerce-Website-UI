@@ -1,0 +1,165 @@
+{
+  "name": "@kingsports/backend-api",
+  "version": "2.0.0",
+  "description": "Enterprise-grade e-commerce backend for KingSports",
+  "main": "src/server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server-basic.js",
+    "dev": "nodemon server-basic.js",
+    "seed": "node src/utils/seeder.js",
+    "test": "jest --coverage --detectOpenHandles",
+    "test:watch": "jest --watch --detectOpenHandles",
+    "test:ci": "jest --coverage --ci --watchAll=false --detectOpenHandles",
+    "test:unit": "jest src/tests/unit --coverage",
+    "test:integration": "jest src/tests/integration --coverage",
+    "lint": "eslint src/ --ext .js",
+    "lint:fix": "eslint src/ --ext .js --fix",
+    "format": "prettier --write src/**/*.js",
+    "format:check": "prettier --check src/**/*.js",
+    "migrate": "node src/utils/migrate.js",
+    "backup": "./backup.sh",
+    "deploy:staging": "./deploy.sh staging",
+    "deploy:production": "./deploy.sh production",
+    "docker:build": "docker build -t @kingsports/backend-api .",
+    "docker:run": "docker run -p 5000:5000 @kingsports/backend-api",
+    "docker:compose": "docker-compose up -d",
+    "logs": "docker-compose logs -f kingsports-backend-api",
+    "health": "curl -f http://localhost:5000/api/health",
+    "metrics": "curl -s http://localhost:5000/api/metrics",
+    "security:audit": "npm audit --audit-level high",
+    "security:fix": "npm audit fix",
+    "security:update": "npm update && npm audit",
+    "security:check": "npm outdated && npm audit",
+    "security:validate": "node scripts/security-check.js",
+    "precommit": "npm run lint && npm run format:check && npm run test:ci",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "ecommerce",
+    "kingsports",
+    "api",
+    "nodejs",
+    "express",
+    "mongodb",
+    "redis",
+    "enterprise",
+    "microservices"
+  ],
+  "author": "KingSports Development Team",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "files": [
+    "src/",
+    "scripts/",
+    "README.md",
+    "SECURITY.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "@sentry/node": "^7.81.1",
+    "@sentry/profiling-node": "^1.3.2",
+    "axios": "^1.6.2",
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.1.5",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.1.0",
+    "joi": "^17.11.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.23.0",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^8.0.3",
+    "prom-client": "^14.2.0",
+    "redis": "^4.6.0",
+    "sharp": "^0.32.6",
+    "stripe": "^14.10.0",
+    "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^4.7.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.8",
+    "artillery": "^2.0.0",
+    "eslint": "^8.54.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-security": "^1.7.1",
+    "husky": "^8.0.3",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.2.0",
+    "mongodb-memory-server": "^9.1.3",
+    "nodemon": "^3.0.2",
+    "prettier": "^3.1.0",
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/server.js",
+      "!src/utils/seeder.js",
+      "!src/tests/**"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 75,
+        "functions": 75,
+        "lines": 75,
+        "statements": 75
+      }
+    },
+    "testMatch": [
+      "**/tests/**/*.test.js",
+      "**/?(*.)+(spec|test).js"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/tests/setup.js"
+    ],
+    "testTimeout": 30000
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "jest --findRelatedTests --passWithNoTests"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test:ci"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kingsports/backend-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kingsports/backend-api/issues"
+  },
+  "homepage": "https://github.com/kingsports/backend-api#readme",
+  "funding": {
+    "type": "corporate",
+    "url": "https://kingsports.com/support"
+  },
+  "security": {
+    "contact": "security@kingsports.com",
+    "policy": "https://github.com/kingsports/backend-api/security/policy"
+  }
+}
