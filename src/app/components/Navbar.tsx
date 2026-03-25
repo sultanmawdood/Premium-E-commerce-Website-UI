@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router';
-import { Search, ShoppingCart, User, Menu, Moon, Sun, X, LogOut } from 'lucide-react';
+import { Search, ShoppingCart, User, Menu, Moon, Sun, X, LogOut, ChevronDown } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
@@ -82,7 +82,7 @@ export function Navbar() {
   // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (userMenuOpen && !event.target.closest('.relative')) {
+      if (userMenuOpen && !event.target.closest('.user-menu')) {
         setUserMenuOpen(false);
       }
     };
@@ -110,37 +110,203 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-background border-b border-border backdrop-blur-sm bg-background/95">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           <div className="flex items-center gap-8">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-black">K</span>
+            <Link to="/" className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-primary flex items-center justify-center rounded-lg">
+                <span className="text-primary-foreground font-black text-lg">K</span>
               </div>
-              <span className="font-black tracking-tight">KINGSPORTS</span>
+              <span className="font-black tracking-tight text-xl">KINGSPORTS</span>
             </Link>
 
-            <div className="hidden md:flex items-center gap-6">
-              <Link to="/shop/men" className="hover:text-primary transition-colors">
-                Men
-              </Link>
-              <Link to="/shop/women" className="hover:text-primary transition-colors">
-                Women
-              </Link>
-              <Link to="/shop/shoes" className="hover:text-primary transition-colors">
-                Shoes
-              </Link>
-              <Link to="/shop/accessories" className="hover:text-primary transition-colors">
+            <div className="hidden lg:flex items-center gap-8 ml-12">
+              {/* Men Dropdown */}
+              <div className="relative dropdown-container group">
+                <button
+                  className="flex items-center gap-1 hover:text-primary transition-colors py-4 font-medium whitespace-nowrap"
+                >
+                  Men
+                  <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                </button>
+                <div className="absolute top-full left-0 mt-0 w-56 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-3">
+                    <Link to="/shop/men" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-medium text-gray-900 dark:text-gray-100">
+                      <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                      All Men's
+                    </Link>
+                    <Link to="/shop/men?type=shirts" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      T-Shirts & Jerseys
+                    </Link>
+                    <Link to="/shop/men?type=training" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Training Wear
+                    </Link>
+                    <Link to="/shop/men?type=jackets" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Jackets & Hoodies
+                    </Link>
+                    <Link to="/shop/men?type=shorts" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Shorts & Pants
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* Women Dropdown */}
+              <div className="relative dropdown-container group">
+                <button
+                  className="flex items-center gap-1 hover:text-primary transition-colors py-4 font-medium whitespace-nowrap"
+                >
+                  Women
+                  <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                </button>
+                <div className="absolute top-full left-0 mt-0 w-56 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-3">
+                    <Link to="/shop/women" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-medium text-gray-900 dark:text-gray-100">
+                      <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                      All Women's
+                    </Link>
+                    <Link to="/shop/women?type=activewear" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Activewear
+                    </Link>
+                    <Link to="/shop/women?type=leggings" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Leggings & Yoga
+                    </Link>
+                    <Link to="/shop/women?type=tops" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Sports Bras & Tops
+                    </Link>
+                    <Link to="/shop/women?type=jackets" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Jackets & Outerwear
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* Shoes Dropdown */}
+              <div className="relative dropdown-container group">
+                <button
+                  className="flex items-center gap-1 hover:text-primary transition-colors py-4 font-medium whitespace-nowrap"
+                >
+                  Shoes
+                  <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                </button>
+                <div className="absolute top-full left-0 mt-0 w-56 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-3">
+                    <Link to="/shop/shoes" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-medium text-gray-900 dark:text-gray-100">
+                      <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                      All Shoes
+                    </Link>
+                    <Link to="/shop/shoes?type=football" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Football Boots
+                    </Link>
+                    <Link to="/shop/shoes?type=running" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Running Shoes
+                    </Link>
+                    <Link to="/shop/shoes?type=basketball" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Basketball Shoes
+                    </Link>
+                    <Link to="/shop/shoes?type=training" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Training Shoes
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              <Link to="/shop/accessories" className="hover:text-primary transition-colors font-medium py-4">
                 Accessories
               </Link>
-              <Link to="/contact" className="hover:text-primary transition-colors">
+
+              {/* Sport Collection Dropdown */}
+              <div className="relative dropdown-container group">
+                <button
+                  className="flex items-center gap-1 hover:text-primary transition-colors py-4 font-medium whitespace-nowrap"
+                >
+                  Sports
+                  <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                </button>
+                <div className="absolute top-full left-0 mt-0 w-56 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-3">
+                    <Link to="/shop/sport-collection" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-medium text-gray-900 dark:text-gray-100">
+                      <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                      All Sports
+                    </Link>
+                    <Link to="/shop/sport-collection?sport=football" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Football
+                    </Link>
+                    <Link to="/shop/sport-collection?sport=basketball" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Basketball
+                    </Link>
+                    <Link to="/shop/sport-collection?sport=running" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Running
+                    </Link>
+                    <Link to="/shop/sport-collection?sport=training" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Training
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* Ball Collection Dropdown */}
+              <div className="relative dropdown-container group">
+                <button
+                  className="flex items-center gap-1 hover:text-primary transition-colors py-4 font-medium whitespace-nowrap"
+                >
+                  Balls
+                  <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                </button>
+                <div className="absolute top-full left-0 mt-0 w-56 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-3">
+                    <Link to="/shop/ball-collection" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-medium text-gray-900 dark:text-gray-100">
+                      <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                      All Balls
+                    </Link>
+                    <Link to="/shop/ball-collection?type=football" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Football
+                    </Link>
+                    <Link to="/shop/ball-collection?type=basketball" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Basketball
+                    </Link>
+                    <Link to="/shop/ball-collection?type=volleyball" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Volleyball
+                    </Link>
+                    <Link to="/shop/ball-collection?type=tennis" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Tennis Balls
+                    </Link>
+                    <Link to="/shop/ball-collection?type=rugby" className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300">
+                      <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
+                      Rugby
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              <Link to="/contact" className="hover:text-primary transition-colors font-medium py-4 mr-8">
                 Contact
               </Link>
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
             {/* Search */}
-            <div className="relative">
+            <div className="relative ml-8">
               <button 
                 onClick={() => setSearchOpen(!searchOpen)}
                 className="hidden md:flex items-center gap-2 px-4 py-2 bg-muted hover:bg-accent hover:text-accent-foreground transition-colors"
@@ -239,7 +405,7 @@ export function Navbar() {
             </button>
 
             {/* User Menu */}
-            <div className="relative">
+            <div className="relative user-menu">
               {isAuthenticated ? (
                 <>
                   <button
@@ -331,6 +497,12 @@ export function Navbar() {
               </Link>
               <Link to="/shop/accessories" className="hover:text-primary transition-colors">
                 Accessories
+              </Link>
+              <Link to="/shop/sport-collection" className="hover:text-primary transition-colors">
+                Sport Collection
+              </Link>
+              <Link to="/shop/ball-collection" className="hover:text-primary transition-colors">
+                Ball Collection
               </Link>
               <Link to="/contact" className="hover:text-primary transition-colors">
                 Contact
