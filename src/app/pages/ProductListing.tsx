@@ -109,17 +109,17 @@ export function ProductListing() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="bg-secondary text-secondary-foreground py-16"
+        className="bg-secondary text-secondary-foreground py-8 sm:py-12 lg:py-16"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 mb-4">
-            <TrendingUp className="w-6 h-6 text-primary" />
-            <span className="text-primary uppercase tracking-wider text-sm">Shop Collection</span>
+            <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+            <span className="text-primary uppercase tracking-wider text-xs sm:text-sm">Shop Collection</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-black uppercase mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase mb-4">
             {getCategoryTitle()}
           </h1>
-          <p className="text-xl opacity-90 max-w-2xl">
+          <p className="text-base sm:text-lg lg:text-xl opacity-90 max-w-2xl">
             {getCategoryDescription()}
           </p>
         </div>
@@ -129,20 +129,20 @@ export function ProductListing() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="bg-muted py-8"
+        className="bg-muted py-4 sm:py-6 lg:py-8"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
             {[
               { icon: Truck, title: 'Free Shipping', desc: 'Orders over $100' },
               { icon: Shield, title: 'Secure Payment', desc: '100% protected' },
               { icon: Award, title: 'Premium Quality', desc: 'Guaranteed' },
               { icon: TrendingUp, title: 'Best Sellers', desc: 'Top rated items' },
             ].map((feature, idx) => (
-              <div key={idx} className="flex items-center gap-3">
-                <feature.icon className="w-8 h-8 text-primary flex-shrink-0" />
+              <div key={idx} className="flex items-center gap-2 sm:gap-3">
+                <feature.icon className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-primary flex-shrink-0" />
                 <div>
-                  <div className="font-bold text-sm">{feature.title}</div>
+                  <div className="font-bold text-xs sm:text-sm">{feature.title}</div>
                   <div className="text-xs text-muted-foreground">{feature.desc}</div>
                 </div>
               </div>
@@ -151,13 +151,13 @@ export function ProductListing() {
         </div>
       </motion.div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-primary/10 border-l-4 border-primary p-4 mb-6">
-          <div className="flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+        <div className="bg-primary/10 border-l-4 border-primary p-3 sm:p-4 mb-4 sm:mb-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4">
             <div>
-              <p className="font-semibold">Showing {filteredProducts.length} of {categoryProducts.length} products</p>
+              <p className="font-semibold text-sm sm:text-base">Showing {filteredProducts.length} of {categoryProducts.length} products</p>
               {(selectedSizes.length > 0 || selectedBrands.length > 0 || selectedColors.length > 0 || priceRange[1] < 200) && (
-                <p className="text-sm text-muted-foreground mt-1">Filters applied</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Filters applied</p>
               )}
             </div>
             {(selectedSizes.length > 0 || selectedBrands.length > 0 || selectedColors.length > 0 || priceRange[1] < 200) && (
@@ -168,7 +168,7 @@ export function ProductListing() {
                   setSelectedColors([]);
                   setPriceRange([0, 200]);
                 }}
-                className="text-sm text-primary hover:underline font-semibold"
+                className="text-xs sm:text-sm text-primary hover:underline font-semibold whitespace-nowrap"
               >
                 Clear All Filters
               </button>
@@ -176,21 +176,21 @@ export function ProductListing() {
           </div>
         </div>
 
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-4">
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center gap-2 px-4 py-2 border border-border hover:bg-muted transition-colors md:hidden"
+            className="flex items-center gap-2 px-4 py-2 border border-border hover:bg-muted transition-colors lg:hidden w-full sm:w-auto justify-center"
           >
             <SlidersHorizontal className="w-4 h-4" />
             <span>Filters</span>
           </button>
 
-          <div className="flex items-center gap-4 ml-auto">
-            <label className="text-sm">Sort by:</label>
+          <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto">
+            <label className="text-xs sm:text-sm whitespace-nowrap">Sort by:</label>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-4 py-2 border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+              className="flex-1 sm:flex-none px-3 sm:px-4 py-2 border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary text-xs sm:text-sm"
             >
               <option value="featured">Featured</option>
               <option value="price-low">Price: Low to High</option>
@@ -200,27 +200,27 @@ export function ProductListing() {
           </div>
         </div>
 
-        <div className="flex gap-8">
+        <div className="flex gap-4 lg:gap-8">
           <aside
             className={`${
               showFilters ? 'block' : 'hidden'
-            } md:block w-full md:w-64 flex-shrink-0`}
+            } lg:block w-full lg:w-64 flex-shrink-0`}
           >
-            <div className="sticky top-20 space-y-6">
+            <div className="sticky top-20 space-y-4 sm:space-y-6">
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-semibold">Filters</h3>
+                  <h3 className="font-semibold text-sm sm:text-base">Filters</h3>
                   <button
                     onClick={() => setShowFilters(false)}
-                    className="md:hidden"
+                    className="lg:hidden"
                   >
                     <X className="w-5 h-5" />
                   </button>
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   <div>
-                    <h4 className="mb-3">Price Range</h4>
+                    <h4 className="mb-3 text-sm sm:text-base font-medium">Price Range</h4>
                     <div className="space-y-2">
                       <input
                         type="range"
@@ -232,7 +232,7 @@ export function ProductListing() {
                         }
                         className="w-full"
                       />
-                      <div className="flex items-center justify-between text-sm">
+                      <div className="flex items-center justify-between text-xs sm:text-sm">
                         <span>${priceRange[0]}</span>
                         <span>${priceRange[1]}</span>
                       </div>
@@ -240,13 +240,13 @@ export function ProductListing() {
                   </div>
 
                   <div>
-                    <h4 className="mb-3">Size</h4>
-                    <div className="flex flex-wrap gap-2">
+                    <h4 className="mb-3 text-sm sm:text-base font-medium">Size</h4>
+                    <div className="flex flex-wrap gap-1 sm:gap-2">
                       {allSizes.map((size) => (
                         <button
                           key={size}
                           onClick={() => toggleSize(size)}
-                          className={`px-3 py-1 border transition-colors ${
+                          className={`px-2 sm:px-3 py-1 border transition-colors text-xs sm:text-sm ${
                             selectedSizes.includes(size)
                               ? 'bg-secondary text-secondary-foreground border-secondary'
                               : 'border-border hover:border-foreground'
@@ -259,15 +259,15 @@ export function ProductListing() {
                   </div>
 
                   <div>
-                    <h4 className="mb-3">Brand</h4>
+                    <h4 className="mb-3 text-sm sm:text-base font-medium">Brand</h4>
                     <div className="space-y-2">
                       {allBrands.map((brand) => (
-                        <label key={brand} className="flex items-center gap-2 cursor-pointer hover:text-primary transition-colors">
+                        <label key={brand} className="flex items-center gap-2 cursor-pointer hover:text-primary transition-colors text-xs sm:text-sm">
                           <input
                             type="checkbox"
                             checked={selectedBrands.includes(brand)}
                             onChange={() => toggleBrand(brand)}
-                            className="w-4 h-4"
+                            className="w-3 h-3 sm:w-4 sm:h-4"
                           />
                           <span>{brand}</span>
                         </label>
@@ -276,8 +276,8 @@ export function ProductListing() {
                   </div>
 
                   <div>
-                    <h4 className="mb-3">Color</h4>
-                    <div className="flex flex-wrap gap-2">
+                    <h4 className="mb-3 text-sm sm:text-base font-medium">Color</h4>
+                    <div className="flex flex-wrap gap-1 sm:gap-2">
                       {availableColors.map((colorInfo) => {
                         const color = colorInfo.name;
                         const count = colorInfo.count;
@@ -302,15 +302,15 @@ export function ProductListing() {
                               e.stopPropagation();
                               toggleColor(color);
                             }}
-                            className={`flex items-center gap-2 px-3 py-2 border transition-all text-sm rounded-md cursor-pointer ${
+                            className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-2 border transition-all text-xs sm:text-sm rounded-md cursor-pointer ${
                               selectedColors.includes(color)
                                 ? 'bg-primary text-primary-foreground border-primary shadow-md scale-105'
                                 : 'border-border hover:border-foreground hover:shadow-sm'
                             }`}
                           >
-                            <div className={`w-4 h-4 rounded-full ${colorMap[color] || 'bg-gray-400'} ${color === 'White' ? 'border border-gray-400' : ''}`}></div>
-                            <span>{color}</span>
-                            <span className="text-xs text-muted-foreground ml-1">({count})</span>
+                            <div className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full ${colorMap[color] || 'bg-gray-400'} ${color === 'White' ? 'border border-gray-400' : ''}`}></div>
+                            <span className="hidden sm:inline">{color}</span>
+                            <span className="text-xs text-muted-foreground ml-1 hidden sm:inline">({count})</span>
                           </button>
                         );
                       })}
@@ -337,7 +337,7 @@ export function ProductListing() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: 0.3 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
             >
               {filteredProducts.map((product) => (
                 <ProductCard 

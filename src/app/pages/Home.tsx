@@ -46,7 +46,7 @@ export function Home() {
 
   return (
     <div>
-      <section className="relative h-[600px] bg-secondary text-secondary-foreground overflow-hidden">
+      <section className="relative h-[400px] sm:h-[500px] lg:h-[600px] bg-secondary text-secondary-foreground overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-40"
           style={{
@@ -60,34 +60,34 @@ export function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-2xl"
+            className="max-w-2xl text-center sm:text-left"
           >
-            <div className="flex items-center gap-2 mb-4">
-              <Zap className="w-6 h-6 text-primary" />
-              <span className="text-primary uppercase tracking-wider text-sm">New Collection</span>
+            <div className="flex items-center justify-center sm:justify-start gap-2 mb-4">
+              <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+              <span className="text-primary uppercase tracking-wider text-xs sm:text-sm">New Collection</span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black mb-4 sm:mb-6 leading-tight">
               UNLEASH YOUR
               <br />
               <span className="text-primary">POTENTIAL</span>
             </h1>
-            <p className="text-xl mb-8 opacity-90">
+            <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 opacity-90 px-4 sm:px-0">
               Premium athletic gear designed for champions. Elevate your performance with KingSports.
             </p>
             <Link
               to="/shop/men"
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 hover:bg-primary/90 transition-all hover:gap-4"
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 sm:px-8 py-3 sm:py-4 hover:bg-primary/90 transition-all hover:gap-4 text-sm sm:text-base"
             >
               <span>Shop Now</span>
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </Link>
           </motion.div>
         </div>
       </section>
 
-      <section className="py-16">
+      <section className="py-8 sm:py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
             {[
               { name: 'Men', image: 'https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=400&h=500&fit=crop', category: 'men' },
               { name: 'Women', image: 'https://images.unsplash.com/photo-1518310952931-b1de897abd40?w=400&h=500&fit=crop', category: 'women' },
@@ -97,7 +97,7 @@ export function Home() {
               <Link
                 key={cat.category}
                 to={`/shop/${cat.category}`}
-                className="group relative h-80 overflow-hidden"
+                className="group relative h-48 sm:h-64 lg:h-80 overflow-hidden rounded-lg"
               >
                 <img
                   src={cat.image}
@@ -105,8 +105,8 @@ export function Home() {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
-                <div className="absolute inset-0 flex items-end p-6">
-                  <h3 className="text-white font-black tracking-wide">
+                <div className="absolute inset-0 flex items-end p-3 sm:p-4 lg:p-6">
+                  <h3 className="text-white font-black tracking-wide text-sm sm:text-base lg:text-lg">
                     {cat.name}
                   </h3>
                 </div>
@@ -116,42 +116,42 @@ export function Home() {
         </div>
       </section>
 
-      <section className="py-16 bg-muted">
+      <section className="py-8 sm:py-12 lg:py-16 bg-muted">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
             <div>
-              <h2 className="text-3xl md:text-4xl font-black mb-2">Featured Products</h2>
-              <p className="text-muted-foreground">Handpicked items for peak performance</p>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black mb-2">Featured Products</h2>
+              <p className="text-muted-foreground text-sm sm:text-base">Handpicked items for peak performance</p>
             </div>
-            <Link to="/shop/men" className="flex items-center gap-2 hover:text-primary transition-colors">
+            <Link to="/shop/men" className="flex items-center gap-2 hover:text-primary transition-colors text-sm sm:text-base">
               <span>View All</span>
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {featuredProducts.map((product) => (
-              <ProductCard key={product.id} {...product} />
+              <ProductCard key={product.id} {...product} colors={product.colors} colorImages={product.colorImages} />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-16">
+      <section className="py-8 sm:py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-4">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="w-6 h-6 text-primary" />
-                <span className="text-primary uppercase tracking-wider text-sm">Top Rated</span>
+                <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                <span className="text-primary uppercase tracking-wider text-xs sm:text-sm">Top Rated</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-black">Best Sellers</h2>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black">Best Sellers</h2>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {bestSellers.map((product) => (
-              <ProductCard key={product.id} {...product} />
+              <ProductCard key={product.id} {...product} colors={product.colors} colorImages={product.colorImages} />
             ))}
           </div>
         </div>

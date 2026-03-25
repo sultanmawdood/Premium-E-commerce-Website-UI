@@ -110,13 +110,13 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-background border-b border-border backdrop-blur-sm bg-background/95">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          <div className="flex items-center gap-8">
-            <Link to="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary flex items-center justify-center rounded-lg">
-                <span className="text-primary-foreground font-black text-lg">K</span>
+        <div className="flex items-center justify-between h-16 sm:h-20">
+          <div className="flex items-center gap-4 sm:gap-8">
+            <Link to="/" className="flex items-center gap-2 sm:gap-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary flex items-center justify-center rounded-lg">
+                <span className="text-primary-foreground font-black text-base sm:text-lg">K</span>
               </div>
-              <span className="font-black tracking-tight text-xl">KINGSPORTS</span>
+              <span className="font-black tracking-tight text-lg sm:text-xl">KINGSPORTS</span>
             </Link>
 
             <div className="hidden lg:flex items-center gap-8 ml-12">
@@ -304,15 +304,23 @@ export function Navbar() {
             </div>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2 sm:gap-4 lg:gap-6">
             {/* Search */}
-            <div className="relative ml-8">
+            <div className="relative">
               <button 
                 onClick={() => setSearchOpen(!searchOpen)}
-                className="hidden md:flex items-center gap-2 px-4 py-2 bg-muted hover:bg-accent hover:text-accent-foreground transition-colors"
+                className="hidden sm:flex items-center gap-2 px-3 sm:px-4 py-2 bg-muted hover:bg-accent hover:text-accent-foreground transition-colors text-sm"
               >
                 <Search className="w-4 h-4" />
-                <span className="text-sm">Search</span>
+                <span className="hidden md:inline">Search</span>
+              </button>
+              
+              {/* Mobile Search Button */}
+              <button 
+                onClick={() => setSearchOpen(!searchOpen)}
+                className="sm:hidden p-2 hover:bg-muted transition-colors"
+              >
+                <Search className="w-5 h-5" />
               </button>
 
               {/* Search Overlay */}
@@ -401,7 +409,7 @@ export function Navbar() {
               className="p-2 hover:bg-muted transition-colors"
               aria-label="Toggle theme"
             >
-              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              {isDark ? <Sun className="w-4 h-4 sm:w-5 sm:h-5" /> : <Moon className="w-4 h-4 sm:w-5 sm:h-5" />}
             </button>
 
             {/* User Menu */}
@@ -410,16 +418,16 @@ export function Navbar() {
                 <>
                   <button
                     onClick={() => setUserMenuOpen(!userMenuOpen)}
-                    className="flex items-center gap-2 p-2 hover:bg-muted transition-colors rounded-lg"
+                    className="flex items-center gap-1 sm:gap-2 p-2 hover:bg-muted transition-colors rounded-lg"
                   >
                     {user?.avatar ? (
                       <img 
                         src={user.avatar} 
                         alt={user.name}
-                        className="w-6 h-6 rounded-full object-cover"
+                        className="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover"
                       />
                     ) : (
-                      <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center">
+                      <div className="w-5 h-5 sm:w-6 sm:h-6 bg-primary rounded-full flex items-center justify-center">
                         <span className="text-primary-foreground text-xs font-bold">
                           {user?.name?.charAt(0).toUpperCase()}
                         </span>
@@ -454,7 +462,7 @@ export function Navbar() {
               ) : (
                 <Link 
                   to="/auth" 
-                  className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors rounded-lg"
+                  className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors rounded-lg text-sm"
                 >
                   <User className="w-4 h-4" />
                   <span className="hidden sm:block">Login</span>
@@ -466,9 +474,9 @@ export function Navbar() {
               onClick={() => navigate('/cart')}
               className="relative p-2 hover:bg-muted transition-colors"
             >
-              <ShoppingCart className="w-5 h-5" />
+              <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
               {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs w-5 h-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center rounded-full">
                   {totalItems}
                 </span>
               )}
@@ -476,7 +484,7 @@ export function Navbar() {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 hover:bg-muted transition-colors"
+              className="lg:hidden p-2 hover:bg-muted transition-colors"
             >
               <Menu className="w-5 h-5" />
             </button>
@@ -484,27 +492,27 @@ export function Navbar() {
         </div>
 
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border">
-            <div className="flex flex-col gap-4">
-              <Link to="/shop/men" className="hover:text-primary transition-colors">
+          <div className="lg:hidden py-4 border-t border-border">
+            <div className="flex flex-col gap-3 sm:gap-4">
+              <Link to="/shop/men" className="hover:text-primary transition-colors text-sm sm:text-base py-1">
                 Men
               </Link>
-              <Link to="/shop/women" className="hover:text-primary transition-colors">
+              <Link to="/shop/women" className="hover:text-primary transition-colors text-sm sm:text-base py-1">
                 Women
               </Link>
-              <Link to="/shop/shoes" className="hover:text-primary transition-colors">
+              <Link to="/shop/shoes" className="hover:text-primary transition-colors text-sm sm:text-base py-1">
                 Shoes
               </Link>
-              <Link to="/shop/accessories" className="hover:text-primary transition-colors">
+              <Link to="/shop/accessories" className="hover:text-primary transition-colors text-sm sm:text-base py-1">
                 Accessories
               </Link>
-              <Link to="/shop/sport-collection" className="hover:text-primary transition-colors">
-                Sport Collection
+              <Link to="/shop/sport-collection" className="hover:text-primary transition-colors text-sm sm:text-base py-1">
+                Sports
               </Link>
-              <Link to="/shop/ball-collection" className="hover:text-primary transition-colors">
-                Ball Collection
+              <Link to="/shop/ball-collection" className="hover:text-primary transition-colors text-sm sm:text-base py-1">
+                Balls
               </Link>
-              <Link to="/contact" className="hover:text-primary transition-colors">
+              <Link to="/contact" className="hover:text-primary transition-colors text-sm sm:text-base py-1">
                 Contact
               </Link>
             </div>
