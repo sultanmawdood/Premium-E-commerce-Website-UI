@@ -15,9 +15,9 @@ export function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-  const searchInputRef = useRef(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -31,7 +31,7 @@ export function Navbar() {
   };
 
   // Search products function
-  const searchProducts = async (query) => {
+  const searchProducts = async (query: string) => {
     if (!query.trim()) {
       setSearchResults([]);
       return;
@@ -54,14 +54,14 @@ export function Navbar() {
   };
 
   // Handle search input change
-  const handleSearchChange = (e) => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
     setSearchQuery(query);
     searchProducts(query);
   };
 
   // Handle search result click
-  const handleResultClick = (productId) => {
+  const handleResultClick = (productId: string) => {
     setSearchOpen(false);
     setSearchQuery('');
     setSearchResults([]);
@@ -70,7 +70,7 @@ export function Navbar() {
   };
 
   // Handle search submit
-  const handleSearchSubmit = (e) => {
+  const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       setSearchOpen(false);
@@ -87,12 +87,13 @@ export function Navbar() {
 
   // Close dropdowns when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (userMenuOpen && !event.target.closest('.user-menu')) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (userMenuOpen && target && !target.closest('.user-menu')) {
         setUserMenuOpen(false);
       }
       // Close mobile menu when clicking outside
-      if (mobileMenuOpen && !event.target.closest('nav')) {
+      if (mobileMenuOpen && target && !target.closest('nav')) {
         setMobileMenuOpen(false);
       }
     };
@@ -103,7 +104,7 @@ export function Navbar() {
 
   // Close search on escape key
   useEffect(() => {
-    const handleEscape = (e) => {
+    const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setSearchOpen(false);
         setSearchQuery('');
@@ -122,11 +123,24 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           <div className="flex items-center gap-4 sm:gap-8">
-            <Link to="/" className="flex items-center gap-2 sm:gap-3">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary flex items-center justify-center rounded-lg">
-                <span className="text-primary-foreground font-black text-base sm:text-lg">K</span>
+            <Link to="/" className="flex items-center">
+              <img 
+                src="/src/assets/Logo.png.png" 
+                alt="KingSports Logo" 
+                className="h-12 sm:h-14 lg:h-16 w-auto object-contain"
+                onError={(e) => {
+                  // Fallback to a default logo if image fails to load
+                  e.currentTarget.style.display = 'none';
+                  const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                  if (fallback) {
+                    fallback.style.display = 'flex';
+                  }
+                }}
+              />
+              {/* Fallback logo */}
+              <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-primary flex items-center justify-center rounded-lg" style={{display: 'none'}}>
+                <span className="text-primary-foreground font-black text-xl sm:text-2xl lg:text-3xl">K</span>
               </div>
-              <span className="font-black tracking-tight text-lg sm:text-xl">KINGSPORTS</span>
             </Link>
 
             <div className="hidden lg:flex items-center gap-8 ml-12">
@@ -381,7 +395,8 @@ export function Navbar() {
                                 alt={product.name}
                                 className="w-12 h-12 object-cover"
                                 onError={(e) => {
-                                  e.target.src = 'https://via.placeholder.com/48x48?text=No+Image';
+                                  const target = e.target as HTMLImageElement;
+                                  target.src = 'https://via.placeholder.com/48x48?text=No+Image';
                                 }}
                               />
                               <div className="flex-1">
